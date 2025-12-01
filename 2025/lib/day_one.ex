@@ -11,7 +11,7 @@ defmodule AdventOfCode.DayOne do
   def turn_dail([<<"R", to_turn::binary>> | rest], current_dail, passes, include_all) do
     to_turn = String.to_integer(to_turn)
 
-    {passes, new_dail} = calculate_turn(current_dail, to_turn, passes, include_all) # |> IO.inspect(label: "After turning R#{to_turn}")
+    {passes, new_dail} = calculate_turn(current_dail, to_turn, passes, include_all)
 
     turn_dail(rest, new_dail, passes, include_all)
   end
@@ -19,7 +19,7 @@ defmodule AdventOfCode.DayOne do
   def turn_dail([<<"L", to_turn::binary>> | rest], current_dail, passes, include_all) do
     to_turn = (String.to_integer(to_turn) * -1)
 
-    {passes, new_dail} = calculate_turn(current_dail, to_turn, passes, include_all) # |> IO.inspect(label: "After turning L#{to_turn}")
+    {passes, new_dail} = calculate_turn(current_dail, to_turn, passes, include_all)
 
     turn_dail(rest, new_dail, passes, include_all)
   end
@@ -41,7 +41,7 @@ defmodule AdventOfCode.DayOne do
 
     last_digs_current_dail =
       case Integer.to_string(current_dail) do
-        <<"-", num::binary>> -> String.to_integer(num) * -1
+        <<"-", _num::binary>> when last_digs_current_dail > 0 -> last_digs_current_dail * -1
         _ -> last_digs_current_dail
       end
 
